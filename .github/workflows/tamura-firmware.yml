@@ -1,0 +1,54 @@
+name: Build tamura firmware
+
+on:
+  push:
+    paths:
+      - '.github/workflows/tamura-firmware.yml'
+      - 'keyboards/ploopyco/**'
+      - 'quantum/**'
+      - 'platforms/**'
+      - 'builddefs/**'
+      - 'Makefile'
+      - '.gitmodules'
+  pull_request:
+    paths:
+      - '.github/workflows/tamura-firmware.yml'
+      - 'keyboards/ploopyco/**'
+      - 'quantum/**'
+      - 'platforms/**'
+      - 'builddefs/**'
+      - 'Makefile'
+      - '.gitmodules'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build ploopyco/madromys/rev1_001:tamura
+    runs-on: ubuntu-latest
+    container: ghcr.io/qmk/qmk_cli
+
+    steps:
+      - name: Checkout QMK Firmware
+        uses: actions/checkout@v7
+        with:
+          submodules: recursive
+
+      - name: Configure Git safe directory
+        run: git config --global --add safe.directory '*'
+
+      - name: Install dependencies
+        run: pip3 install -r requirements-dev.txt
+
+      - name: Build firmware
+        run: qmk compile -kb ploopyco/madromys/rev1_001 -km tamura
+
+      - name: Upload UF2 artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: tamura-firmware-${{ github.sha }}
+          path: '*.uf2'
+          if-no-files-found: error
+          retention-days: 30
