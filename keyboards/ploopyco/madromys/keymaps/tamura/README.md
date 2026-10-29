@@ -13,8 +13,8 @@ Adept anyball BTU 44mmです。販売元の案内に基づき、Ploopy Adeptと�
 ボタン配置は次のとおりです。
 
 ```text
-上段: 左クリック | DPI切替 | 右クリック | ブラウザ戻る
-下段: DRAG_SCROLL                     | ブラウザ進む
+上段: DRAG_SCROLL | DPI切替 | ブラウザ戻る | ブラウザ進む
+下段: 左クリック  | トラックボール      | 右クリック
 ```
 
 `DPI_CONFIG` はDPIを順番に切り替えます。`DRAG_SCROLL` は押している間だけ有効になり、離すと通常のカーソル操作に戻ります。カーソル感度と通常のスクロール方式は変更していません。
@@ -23,8 +23,8 @@ Adept anyball BTU 44mmです。販売元の案内に基づき、Ploopy Adeptと�
 
 ```c
 #define PLOOPY_DRAGSCROLL_MOMENTARY
-#define PLOOPY_DRAGSCROLL_DIVISOR_H 32.0
-#define PLOOPY_DRAGSCROLL_DIVISOR_V 32.0
+#define PLOOPY_DRAGSCROLL_DIVISOR_H 64.0
+#define PLOOPY_DRAGSCROLL_DIVISOR_V 64.0
 ```
 
 H/Vの除数を大きくすると、同じボール移動に対するスクロール量が減り、スクロールが遅くなります。縦横はそれぞれ独立して変更できます。
